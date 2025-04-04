@@ -1,49 +1,45 @@
 # AWS Amplify Terraform Project
 
-This project provisions an AWS Amplify application, its associated branches, backend environments, and optional custom domain associations using Terraform.
+This project provisions and manages an AWS Amplify application using Terraform. It includes resources for the Amplify app, branches, and backend environments.
 
 ## Project Structure
 
-- **`main.tf`**: Contains the Terraform configuration for creating the Amplify app, branches, backend environments, and domain associations.
+- **Amplify App**: Configures the Amplify application, including repository, platform, build specifications, and environment variables.
+- **Amplify Branch**: Manages the branches for the Amplify app, including environment variables and build settings.
+- **Backend Environment**: Sets up the backend environment for the Amplify app.
 
-## Resources Provisioned
+## Resources
 
-### 1. Amplify App
-The Amplify app is created using the `aws_amplify_app` resource. Key configurations include:
-- **Name**: `my-awesome-app`
-- **Repository**: `https://github.com/username/my-repo.git`
+### Amplify App
+The Amplify app is defined in the `aws_amplify_app` resource:
+- **Name**: `static-website-demo`
+- **Repository**: [demo-static-web](https://github.com/ShubhamMca88/demo-static-web.git)
 - **Platform**: `WEB`
+- **Environment Variables**: 
+  - `ENV`: `dev`
+- **Build Spec**: Custom build specification for the app.
+
+### Amplify Branch
+The main branch is defined in the `aws_amplify_branch` resource:
+- **Branch Name**: `main`
+- **Stage**: `PRODUCTION`
 - **Environment Variables**:
   - `ENV`: `prod`
-  - `API_ENDPOINT`: `https://api.example.com`
-- **Build Specification**: Custom build commands for the frontend.
 
-### 2. Main Branch
-The `main` branch is created using the `aws_amplify_branch` resource. Key configurations include:
-- **Branch Name**: `main`
-- **Framework**: `React`
-- **Stage**: `PRODUCTION`
-- **Auto Build**: Enabled
-
-### 3. Backend Environment
-The backend environment is created using the `aws_amplify_backend_environment` resource. Key configurations include:
+### Backend Environment
+The backend environment is defined in the `aws_amplify_backend_environment` resource:
 - **Environment Name**: `prod`
 - **Stack Name**: `my-backend-stack`
 
-### 4. Custom Domain Association (Optional)
-A custom domain is associated with the Amplify app using the `aws_amplify_domain_association` resource. Key configurations include:
-- **Domain Name**: `example.com`
-- **Subdomain**: `www` (linked to the `main` branch)
-
 ## Prerequisites
 
-- Terraform installed on your system.
-- AWS credentials configured.
-- A GitHub OAuth token stored in the `var.github_oauth_token` variable.
+- Terraform installed on your machine.
+- AWS credentials configured for Terraform.
+- A GitHub repository for the Amplify app.
 
 ## Usage
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/username/my-repo.git
-   cd aws-amplify-terraform-project
+1. Clone this repository.
+2. Initialize Terraform:
+   ```sh
+   terraform init
